@@ -52,4 +52,8 @@
     terraform apply
     ```
 
-1. Prior to running `terraform destroy`, first ensure the state of provisioned dynatrace environments is `DISABLED`. This can be set via the `dynatrace_environment` resource.
+1. All resouces can be destroyed with this command:
+
+  ```bash
+  terraform apply -var="environment_state=DISABLED" -auto-approve && terraform destroy -auto-approve
+  ```
