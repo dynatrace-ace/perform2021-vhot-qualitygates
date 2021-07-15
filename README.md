@@ -54,6 +54,6 @@
 
 1. All resouces can be destroyed with this command:
 
-  ```bash
-  terraform apply -var="environment_state=DISABLED" -auto-approve && terraform destroy -auto-approve
-  ```
+    ```bash
+    terraform apply -var="environment_state=DISABLED" -auto-approve && terraform destroy -auto-approve
+    ```
