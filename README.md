@@ -30,7 +30,7 @@
         firstName = "John"
         lastName = "Smith"
       }
-      0 = {
+      1 = {
         email = "user2@example.com"
         firstName = "James"
         lastName = "Miner"
