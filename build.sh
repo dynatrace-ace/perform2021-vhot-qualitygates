@@ -3,7 +3,7 @@
 ##########################################
 monaco_version="v1.1.0" 
 domain="nip.io"
-jenkins_chart_version="1.27.0"
+jenkins_chart_version="3.3.18"
 git_org="perform"
 git_repo="perform"
 git_user="dynatrace"
@@ -255,7 +255,6 @@ kubectl create -f $home_folder/$clone_folder/box/helm/registry.yml
 ##############################
 # Configure persistent volume claim for jenkins jobs
 echo "configure maven pvc"
-kubectl create ns jenkins
 kubectl apply -f $home_folder/$clone_folder/box/helm/k8s-maven-pvc.yml
 
 echo "Jenkins - Install"
@@ -275,10 +274,12 @@ sed \
     $home_folder/$clone_folder/box/helm/jenkins-values.yml > $home_folder/$clone_folder/box/helm/jenkins-values-gen.yml
 
 kubectl create clusterrolebinding jenkins --clusterrole cluster-admin --serviceaccount=jenkins:jenkins
-kubectl create clusterrolebinding jenkinsd --clusterrole cluster-admin --serviceaccount=jenkins:default
-helm repo add stable https://charts.helm.sh/stable
-helm install jenkins stable/jenkins --values $home_folder/$clone_folder/box/helm/jenkins-values-gen.yml --version $jenkins_chart_version --namespace jenkins --wait 
 
+helm repo add jenkins https://charts.jenkins.io
+helm repo update
+export KUBECONFIG=/etc/rancher/k3s/k3s.yaml
+
+helm upgrade -i jenkins jenkins/jenkins --create-namespace -f $home_folder/$clone_folder/box/helm/jenkins-values-gen.yml --version $jenkins_chart_version --namespace jenkins --wait 
 
 
 ##############################
