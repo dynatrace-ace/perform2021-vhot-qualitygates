@@ -2,13 +2,54 @@
 
 ## Provision infrastructure
 
-1. Copy pre-build.sh script to the aws machine then add the env variables
-```bash
-export DYNATRACE_ENVIRONMENT_ID="https://test.live.dynatrace.com"
-export DYNATRACE_TOKEN="tokenid"
-export DYNATRACE_PAAS_TOKEN="paas token"
-chmod +rx pre-build.sh
-./pre-build.sh
-```
+1. Prepare Service Account and download JSON key credentials in GCP.
 
-2. To start over copy and run the script restart.sh
+    ```bash
+    https://cloud.google.com/iam/docs/creating-managing-service-accounts
+    ```
+
+1. Initialize terraform
+
+    ```bash
+    terraform init
+    ```
+
+1. Create a `terraform.tfvars` file inside the *terraform/gcloud* folder
+   It needs to contain the following as a minimum:
+
+    ```hcl
+    name_prefix          = "example-vhot-qgs"
+    dt_cluster_url       = "https://{id}.managed-sprint.dynalabs.io" 
+    dt_cluster_api_token = "{your_cluser_api_token}"
+    gcloud_project       = "myGCPProject" # GCP Project you want to use
+    gcloud_zone          = "us-central1-a" # GCP zone name
+    gcloud_cred_file     = "/location/to/sakey.json" # location of the Service Account JSON created earlier
+    users = {
+      0 = {
+        email = "user1@example.com"
+        firstName = "John"
+        lastName = "Smith"
+      }
+      0 = {
+        email = "user2@example.com"
+        firstName = "James"
+        lastName = "Miner"
+      }
+    }
+    ```
+
+    Check out `variables.tf` for a complete list of variables
+
+1. Verify the configuration by running `terraform plan`
+
+    ```bash
+    terraform plan
+    ```
+
+1. Apply the configuration
+
+    ```bash
+    terraform apply
+    ```
+
+1. Prior to running `terraform destroy`, first ensure the state of provisioned dynatrace environments is `DISABLED`. This can be set via the `dynatrace_environment` resource.
