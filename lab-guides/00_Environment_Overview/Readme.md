@@ -2,17 +2,20 @@
 Before getting started configuring our quality gate we will review the build and release process and trigger a full build from development up to production using Jenkins and our applications carts.
 
 ## Step 1 - Get into the virtual machine using ssh
-In order to get into our working environment we will be using an ssh to conect to our AWS machine. 
-```(bash)
- $ ssh username@aws-ip 
- use the ip and password from Dynatrace University
+In order to get into our working environment we will be using an ssh to conect to our AWS machine.
+
+```bash
+ $ ssh username@ip-address
+ ip address and password will be provided by instructor
 ```
 
 ## Step 2 - Explore the different namespaces using kubectl
-Out of the box we have applications running in our Kubernetes cluster using k3s. In order to visualize the namespaces where the applications live run the following command 
-```(bash)
+Out of the box we have applications running in our Kubernetes cluster using k3s. In order to visualize the namespaces where the applications live run the following command
+
+```bash
 $ kubectl get namespaces
 ```
+
 You should see something like this: 
 
 ```(bash)
