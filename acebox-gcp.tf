@@ -74,7 +74,6 @@ resource "google_compute_instance" "acebox" {
         "echo \"${var.acebox_user}:${var.acebox_user}\" | sudo chpasswd",
         "sudo service ssh restart",
         "sudo usermod -aG sudo ${var.acebox_user}",
-        "sudo chown -R ${var.acebox_user}:${var.acebox_user} /home/${var.acebox_user}/"
       ]
   }
 
@@ -86,7 +85,8 @@ resource "google_compute_instance" "acebox" {
   provisioner "remote-exec" {
     inline = [
         "sudo chmod +x ~/install.sh",
-        "sudo DT_CLUSTER_URL=${var.dt_cluster_url}  DT_ENVIRONMENT_ID=${dynatrace_environment.vhot_env[each.key].id} DT_ENVIRONMENT_TOKEN=${dynatrace_environment.vhot_env[each.key].api_token} VM_IP=${self.network_interface.0.access_config.0.nat_ip} ~/install.sh"
+        "sudo DT_CLUSTER_URL=${var.dt_cluster_url}  DT_ENVIRONMENT_ID=${dynatrace_environment.vhot_env[each.key].id} DT_ENVIRONMENT_TOKEN=${dynatrace_environment.vhot_env[each.key].api_token} VM_IP=${self.network_interface.0.access_config.0.nat_ip} ~/install.sh",
+        "sudo chown -R ${var.acebox_user}:${var.acebox_user} /home/${var.acebox_user}/",
       ]
   }
 }

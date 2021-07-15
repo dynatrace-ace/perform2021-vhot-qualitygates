@@ -3,7 +3,7 @@ clone_folder="bootstrap"
 shell_user="ace"
 home_folder="/home/$shell_user"
 
-sudo apt install -y git
+sudo apt install -y git vim
 
 rm -rf bootstrap
 ##############################
