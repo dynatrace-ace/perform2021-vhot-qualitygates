@@ -38,12 +38,9 @@ variable "name_prefix" {
   default = "ace-box-cloud"
 }
 
-variable "ssh_keys" {
-  description = "Paths to public and private SSH keys for ace-box user"
-  default = {
-    private = "./key"
-    public  = "./key.pub"
-  }
+variable "environment_state" {
+  description = "State of Dynatrace environment"
+  default = "ENABLED"
 }
 
 variable "users" {
