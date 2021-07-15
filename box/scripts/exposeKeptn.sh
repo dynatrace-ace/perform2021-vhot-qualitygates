@@ -4,7 +4,7 @@ set -e
 echo "Configure nginx-ingress and Keptn"
 
 # Get Ingress gateway IP-Address
-export VM_IP=$(curl -s http://169.254.169.254/latest/meta-data/public-ipv4)
+export VM_IP=$(curl -s ifconfig.me)
 
 # Check if IP-Address is not empty or pending
 if [ -z "$VM_IP" ] || [ "$VM_IP" = "Pending" ] ; then
