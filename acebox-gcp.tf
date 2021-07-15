@@ -1,7 +1,8 @@
 ## acebox requires public IP address
 resource "google_compute_address" "acebox" {
-  name     = "${var.name_prefix}-${count.index}-ipv4-addr-${random_id.uuid.hex}"
-  count = var.instance_count
+  for_each = var.users
+
+  name     = "${var.name_prefix}-${each.key}-ipv4-addr-${random_id.uuid.hex}"
 }
 
 ## Allow access to acebox via HTTPS
@@ -32,7 +33,8 @@ resource "google_compute_firewall" "acebox-http" {
 
 ## Create acebox host
 resource "google_compute_instance" "acebox" {
-  for_each     = var.dynatrace_environments
+  for_each = var.users
+
   name         = "${var.name_prefix}-${each.key}-${random_id.uuid.hex}"
   machine_type = var.acebox_size
   zone         = var.gcloud_zone
@@ -66,32 +68,10 @@ resource "google_compute_instance" "acebox" {
   }
 
   provisioner "remote-exec" {
-    inline = ["sudo apt-get update && sudo DEBIAN_FRONTEND=noninteractive apt-get upgrade -y"]
-  }
-
-  /*provisioner "file" {
-    source      = "${path.module}/../microk8s"
-    destination = "~/"
-  }
-
-  provisioner "file" {
-    source      = "${path.module}/../install.sh"
-    destination = "~/install.sh"
-  }*/
-
-  /*provisioner "remote-exec" {
     inline = [
-        "tr -d '\\015' < /home/${var.acebox_user}/install.sh > /home/${var.acebox_user}/install_fixed.sh",
-        "chmod +x /home/${var.acebox_user}/install_fixed.sh",
-        "/home/${var.acebox_user}/install_fixed.sh ${self.network_interface.0.access_config.0.nat_ip} ${var.acebox_user}"
-      ]
-  }*/
-  provisioner "remote-exec" {
-    inline = [
+        "sudo apt-get update && sudo DEBIAN_FRONTEND=noninteractive apt-get upgrade -y",
         "sudo sed -i 's/PasswordAuthentication no/PasswordAuthentication yes/' /etc/ssh/sshd_config",
         "sudo service ssh restart",
-        #"sudo adduser ${var.acebox_user} --disabled-password --gecos ''",
-        #"sudo echo ${var.acebox_user}:${var.acebox_user} | chpasswd",
         "sudo usermod -aG sudo ${var.acebox_user}",
       ]
   }
@@ -104,7 +84,7 @@ resource "google_compute_instance" "acebox" {
   provisioner "remote-exec" {
     inline = [
         "sudo chmod +x ~/install.sh",
-        "sudo DYNATRACE_ENVIRONMENT_URL=${each.value["url"]} DYNATRACE_TOKEN=${each.value["api_token"]} DYNATRACE_PAAS_TOKEN=${each.value["paas_token"]} ~/install.sh"
+        "sudo DT_CLUSTER_URL=${var.dt_cluster_url}  DT_ENVIRONMENT_ID=${dynatrace_environment.vhot_env[each.key].id} DT_ENVIRONMENT_TOKEN=${dynatrace_environment.vhot_env[each.key].api_token} ~/install.sh"
       ]
   }
 }

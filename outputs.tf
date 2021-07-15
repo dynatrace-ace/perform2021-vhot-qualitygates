@@ -11,6 +11,13 @@ output "instances" {
   }
 }
 
+output "users" {
+  value = {
+    for index, user in var.users:
+    user.email => google_compute_instance.acebox[index].network_interface[0].access_config[0].nat_ip
+  }
+}
+
 # output "dynatrace_environments" {
 #   value = {
 #     for env in var.dynatrace_environments: 

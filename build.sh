@@ -38,13 +38,51 @@ sudo snap install jq
 sudo snap install docker
 sudo chmod 777 /var/run/docker.sock
 
+# Create Dynatrace Tokens
+printf "Creating PAAS Token for Dynatrace Environment ${DT_CLUSTER_URL}/e/$DT_ENVIRONMENT_ID\n\n"
+
+paas_token_body='{
+                    "scopes": [
+                        "InstallerDownload"
+                    ],
+                    "name": "vhot-monaco-paas"
+                  }'
+
+DT_PAAS_TOKEN_RESPONSE=$(curl -k -s --location --request POST "${DT_CLUSTER_URL}/e/$DT_ENVIRONMENT_ID/api/v2/apiTokens" \
+--header "Authorization: Api-Token $DT_ENVIRONMENT_TOKEN" \
+--header "Content-Type: application/json" \
+--data-raw "${paas_token_body}")
+DYNATRACE_PAAS_TOKEN=$(echo $DT_PAAS_TOKEN_RESPONSE | jq -r '.token' )
+
+printf "Creating API Token for Dynatrace Environment ${DT_CLUSTER_URL}/e/$DT_ENVIRONMENT_ID\n\n"
+
+api_token_body='{
+                "scopes": [
+                    "DataExport", "PluginUpload", "DcrumIntegration", "AdvancedSyntheticIntegration", "ExternalSyntheticIntegration", 
+                    "LogExport", "ReadConfig", "WriteConfig", "DTAQLAccess", "UserSessionAnonymization", "DataPrivacy", "CaptureRequestData", 
+                    "Davis", "DssFileManagement", "RumJavaScriptTagManagement", "TenantTokenManagement", "ActiveGateCertManagement", "RestRequestForwarding", 
+                    "ReadSyntheticData", "DataImport", "auditLogs.read", "metrics.read", "metrics.write", "entities.read", "entities.write", "problems.read", 
+                    "problems.write", "networkZones.read", "networkZones.write", "activeGates.read", "activeGates.write", "credentialVault.read", "credentialVault.write", 
+                    "extensions.read", "extensions.write", "extensionConfigurations.read", "extensionConfigurations.write", "extensionEnvironment.read", "extensionEnvironment.write", 
+                    "metrics.ingest", "securityProblems.read", "securityProblems.write", "syntheticLocations.read", "syntheticLocations.write", "settings.read", "settings.write", 
+                    "tenantTokenRotation.write", "slo.read", "slo.write", "releases.read", "apiTokens.read", "apiTokens.write", "logs.read", "logs.ingest"
+                ],
+                "name": "vhot-monaco-api-token"
+                }'
+
+DT_API_TOKEN_RESPONSE=$(curl -k -s --location --request POST "${DT_CLUSTER_URL}/e/$DT_ENVIRONMENT_ID/api/v2/apiTokens" \
+--header "Authorization: Api-Token $DT_ENVIRONMENT_TOKEN" \
+--header "Content-Type: application/json" \
+--data-raw "${api_token_body}")
+DYNATRACE_TOKEN=$(echo $DT_API_TOKEN_RESPONSE | jq -r '.token' )
+
 echo "Retrieving Dynatrace Environment details"
 # IMPORTANT! This values should be already in place before executing this script. 
 # export DYNATRACE_ENVIRONMENT_ID="https://test.live.dynatrace.com/"
 # export DYNATRACE_TOKEN="tokenid"
 # export DYNATRACE_PAAS_TOKEN="paas token"
 
-DT_TENANT=$DYNATRACE_ENVIRONMENT_ID
+DT_TENANT="$DT_CLUSTER_URL/e/$DT_ENVIRONMENT_ID"
 
 VM_IP=$(curl -s http://169.254.169.254/latest/meta-data/public-ipv4)
 echo "Virtual machine IP: $VM_IP"

@@ -1,5 +1,9 @@
 terraform {
+}
 
+provider "dynatrace" {
+  dt_cluster_url   = var.dt_cluster_url
+  dt_cluster_api_token = var.dt_cluster_api_token
 }
 
 provider "google" {

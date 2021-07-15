@@ -25,9 +25,12 @@ variable "gcloud_zone" {
   description = "Google Cloud Zone where resources will be created"
 }
 
-variable "instance_count" {
-  description = "Number of instances to create"
-  default = "1"
+variable "dt_cluster_url" {
+  description = "Dynatrace cluster URL"
+}
+
+variable "dt_cluster_api_token" {
+  description = "Dynatrace cluster API token"
 }
 
 variable "name_prefix" {
@@ -43,18 +46,18 @@ variable "ssh_keys" {
   }
 }
 
-variable "dynatrace_environments" {
-  description = "Dynatrace environments used for installation and configuration"
+variable "users" {
+  description = "Map of lab participants"
   type = map(object({
-    url = string
-    api_token = string
-    paas_token = string
+    email = string
+    firstName = string
+    lastName = string
   }))
   default = {
     0 = {
-        url = "https://env.live.dynatrace.com"
-        paas_token = "ENTER_PAAS_TOKEN_HERE"
-        api_token = "ENTER_API_TOKEN_HERE"
+      email = "john.smith@example.com"
+      firstName = "John"
+      lastName = "Smith"
     },
   }
 }
