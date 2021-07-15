@@ -4,18 +4,16 @@
 #     for instance in 
 #   }
 # }
-output "instances" {
-  value = {
-    for instance in google_compute_instance.acebox: 
-    instance.id => instance.network_interface[0].access_config[0].nat_ip
-  }
-}
 
 output "users" {
   value = {
     for index, user in var.users:
     user.email => google_compute_instance.acebox[index].network_interface[0].access_config[0].nat_ip
   }
+}
+
+output "acebox_ip" {
+  value = "connect using: ssh -i ${path.module}/key ${var.acebox_user}@ip_address"
 }
 
 # output "dynatrace_environments" {
