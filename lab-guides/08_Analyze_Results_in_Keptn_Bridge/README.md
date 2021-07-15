@@ -43,6 +43,6 @@ During our third run, one of the two objectives exceeded the failure threshold a
 
 ---
 
-[Previous Step: Run Performance Tests](../07_Run_Performance_Tests) :arrow_backward: :arrow_forward: [Next Step: Compare Tests in Dynatrace](../09_Compare_Tests_in_Dynatrace)
+[Previous Step: Run Pipeline](../07_Run_Pipeline) :arrow_backward: :arrow_forward: [Next Step: Compare Tests in Dynatrace](../09_Find_Root_Cause_Dynatrace)
 
 :arrow_up_small: [Back to overview](../)

@@ -29,6 +29,6 @@ In this exercise you'll measure the performance for the carts service 3 times. T
 1. Go into `Jenkins > sockshop > create-release-branch`, click on `Build with Parameters` and use `carts` as parameter to create a new branch for our release to staging. Then go into `Jenkins > sockshop > carts` and click on `Scan Multibranch Pipeline Now` to trigger automatically a new build.
 1. Wait until the Jenkins build exists with a *Failure* (red) status.
 
-[Previous Step: Define Pipeline](../06_Define_Pipeline) :arrow_backward: :arrow_forward: [Next Step: Analize Results in Keptn Brdige](../08_Analyze_Results_in_Keptn_Bridge)
+[Previous Step: Define Pipeline](../06_Define_Pipeline) :arrow_backward: :arrow_forward: [Next Step: Analize Results in Keptn Bridge](../08_Analyze_Results_in_Keptn_Bridge)
 
 :arrow_up_small: [Back to overview](../)
