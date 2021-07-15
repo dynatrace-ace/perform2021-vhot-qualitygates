@@ -10,6 +10,7 @@ git_user="dynatrace"
 git_pwd="dynatrace"
 git_email="perform2021@dt-perform.com"
 shell_user="ace"
+keptn_version=0.7.2
 
 app1Repo="carts"
 releaseBranchPipeline="jenkins-release-branch"
@@ -144,7 +145,7 @@ kubectl wait --for=condition=ready pod --all -n dynatrace --timeout=60s
 # Install keptn cli      #
 ##############################
 cd $home_folder
-curl -sL https://get.keptn.sh | bash
+curl -sL https://get.keptn.sh | KEPTN_VERSION=$keptn_version bash 
 
 
 ##############################
@@ -270,6 +271,8 @@ sed \
     $home_folder/$clone_folder/box/helm/jenkins-values.yml > $home_folder/$clone_folder/box/helm/jenkins-values-gen.yml
 
 kubectl create clusterrolebinding jenkins --clusterrole cluster-admin --serviceaccount=jenkins:jenkins
+kubectl create clusterrolebinding default --clusterrole cluster-admin --serviceaccount=jenkins:default
+kubectl apply -f $home_folder/$clone_folder/box/helm/k8s-jenkins-crb.yml
 
 helm repo add jenkins https://charts.jenkins.io
 helm repo update
@@ -303,9 +306,7 @@ helm upgrade -i ace-dashboard $home_folder/$clone_folder/box/helm/dashboard -f $
 # Credentials file #
 ##############################
 sed \
-    -e "s|DYNATRACE_ENVIRONMENT_ID|$DYNATRACE_ENVIRONMENT_ID|g" \
+    -e "s|DYNATRACE_ENVIRONMENT_ID|$DT_TENANT|g" \
     -e "s|DYNATRACE_TOKEN|$DYNATRACE_TOKEN|g" \
     -e "s|DYNATRACE_PAAS_TOKEN|$DYNATRACE_PAAS_TOKEN|g" \
 $home_folder/$clone_folder/box/scripts/creds-template.json > $home_folder/creds.json
-
-
