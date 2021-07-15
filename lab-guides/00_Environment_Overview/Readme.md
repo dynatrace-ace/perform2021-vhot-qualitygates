@@ -105,7 +105,8 @@ As you see, it's difficult to locate an specific service with the current config
 
 
 ## Step 8 - Release the first version to staging
-Go into `Jenkins > sockshop > create-release-branch` and use `carts` as parameter to create a new branch for our release to staging. Then go into `Jenkins > sockshop > carts` and click on `Scan Multibranch Pipeline Now` to visualize the new branch created and trigger automatically a new build.
+
+1. Go into `Jenkins > sockshop > create-release-branch`, click on `Build with Parameters` and use `carts` as the parameter value to create a new branch for our release to staging. Then go into `Jenkins > sockshop > carts` and click on `Scan Multibranch Pipeline Now` to trigger automatically a new build.
 
 After the build has finished, run `kubectl -n staging get deploy carts` to see the microservice running in the staging environment.
 

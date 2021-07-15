@@ -2,18 +2,19 @@
 
 In this lab you will activate a Quality gate for the carts service that will catch any build issues in the staging environment.
 
-## Step 1: Replace `Jenkinsfile.performance`
+## Step 1: Update `Jenkinsfile`
 
-1. Navigate to the `k8s-deploy-staging` repository in your Gitea instance and locate the JenkinsFile.
-1. Review and uncomment the following blocks of code. (remove the  `/*` and `*/` from lines `3,7,33,47,93,184`)
+1. Navigate to the `k8s-deploy-staging` repository (`http://gitea.xx.xx.xx.xx.nip.io/perform/k8s-deploy-staging`) in your Gitea instance and locate the file named Jenkinsfile.keptn
+1. Copy all the content in this file and paste it into the file named `Jenkinsfile` on the same repository (make sure to replace all the content that was there).
 
     2.1. This will import the keptn groovy libraries inside the Jenkins pipeline and will set the parameter values that will used throughout the pipeline.
+
     ```groovy
-    
     @Library('keptn-library@3.3')
     import sh.keptn.Keptn
     def keptn = new sh.keptn.Keptn()
     ```
+  
     2.2 This set the keptn variables required
     ```groovy
       environment {
@@ -30,7 +31,9 @@ In this lab you will activate a Quality gate for the carts service that will cat
         KEPTN_BRIDGE = credentials('keptn-bridge')
       }
     ```
+
     2.3 This stage initializes keptn, it creates the required project, service, passes all the required files for the evaluation and configures monitoring for the service that is being deployed.
+
     ```groovy
         stage('Keptn Init') {
       steps{
@@ -43,11 +46,13 @@ In this lab you will activate a Quality gate for the carts service that will cat
       }
     } // end stage
     ```
+
     This marks the start time of the keptn evaluation
 
     ```groovy
     keptn.markEvaluationStartTime()
     ```
+
   The `sendStartEvaluationEvent` function posts an evaluation event to the keptn API which triggers a performance evaluation in keptn using dynatrace as the SLI provider.
 
   ```groovy
@@ -94,11 +99,6 @@ In this lab you will activate a Quality gate for the carts service that will cat
   - **fail score:** build will fail
 
 2. **Save and commit the file.**
-
-
-
-
-
 
 ## Step 3: Review the SLO,SLI definitions
 

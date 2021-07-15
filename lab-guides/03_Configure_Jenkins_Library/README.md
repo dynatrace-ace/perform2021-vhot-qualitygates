@@ -6,12 +6,9 @@ In this lab you'll learn how to configure the Keptn library for Jenkins.
 
 Following the `everything as code` best practice, we have configure Jenkins to consume a Yaml file to grab all the configurations for our environment. One of those configurations is the keptn library for Jenkins that we will be using to simplify the communication between keptn api and Jenkins pipelines. 
 
-1. In order to check the library configuration in the yaml file use the following command and search for `globalLibraries` in line 486.
+1. The `globalLibraries` are stored in ~/bootstrap/box/helm/jenkins-values-gen.yml.
 
-```(bash)
-(bastion) $ vi ./bootstrap/box/helm/jenkins-values-gen.yml 
-```
-You should see something like this 
+    Under the `globalLibraries` yaml block, the following libraries have already been added:
 
     ```yaml
           globalLibraries:
@@ -36,8 +33,7 @@ You should see something like this
                       - "gitBranchDiscovery"
     ```
 
-
-2. You can also visualize the library in the Jenkins  UI by navigating to `Jenkins > Manage Jenkins > Configure System > Global Pipeline Libraries`.
+1. You can also visualize the library in the Jenkins  UI by navigating to `Jenkins > Manage Jenkins > Configure System > Global Pipeline Libraries`.
 ![keptn](./assets/keptn-jenkins-library1.png)
 
 ## Step 2: Get Keptn credentials
