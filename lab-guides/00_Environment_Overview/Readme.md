@@ -34,18 +34,35 @@ registry          Active   7m1s
 jenkins           Active   7m
 dashboard         Active   5m8s
 ```
+
 We will be working with some of these namespaces to deploy our application across the different stages from dev > staging > production
 
 In order to visualize what's already running in a namespace use:
 
-```(bash)
+```bash
 kubectl -n dev get all 
 ```
+
 You should see the database for the carts microservice already in there.
-```(bash)
-NAME               TYPE           CLUSTER-IP     EXTERNAL-IP   PORT(S)        AGE
-service/carts-db   ClusterIP      10.43.20.194   <none>        27017/TCP      9h
+
+```bash
+NAME                            READY   STATUS    RESTARTS   AGE
+pod/carts-db-65db887ff9-qh9cf   1/1     Running   0          4h19m
+pod/carts-6c9ff68f8-rj8cd       1/1     Running   0          4h13m
+
+NAME               TYPE        CLUSTER-IP     EXTERNAL-IP   PORT(S)     AGE
+service/carts-db   ClusterIP   10.43.2.171    <none>        27017/TCP   4h19m
+service/carts      ClusterIP   10.43.186.89   <none>        80/TCP      4h13m
+
+NAME                       READY   UP-TO-DATE   AVAILABLE   AGE
+deployment.apps/carts-db   1/1     1            1           4h19m
+deployment.apps/carts      1/1     1            1           4h13m
+
+NAME                                  DESIRED   CURRENT   READY   AGE
+replicaset.apps/carts-db-65db887ff9   1         1         1       4h19m
+replicaset.apps/carts-6c9ff68f8       1         1         1       4h13m
 ```
+
 ## Step 3 - Review the ingress configuration
 To understand more about the way our applications are exposed we can look for our ingress configuration. 
 
