@@ -112,10 +112,6 @@ After the build has finished, run `kubectl -n staging get deploy carts` to see t
 ## Next steps
 We have now a working version of our microservice running in the environments `dev` and `staging`, but we haven't implemented any quality checks yet. In the next labs, we will configure `Keptn + Dynatrace + Jenkins` to implement a Quality Gate and we see how this can prevent bad builds from being promoted from one environment into the next one.
 
-
-
-:arrow_forward: [Next Step: Install Keptn](../02_Configure_Keptn_Dynatrace_Integration)
+:arrow_forward: [Next Step: Install Keptn](../01_Install_Keptn)
 
 :arrow_up_small: [Back to overview](../)
-
-
