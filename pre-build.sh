@@ -3,6 +3,8 @@ clone_folder="bootstrap"
 shell_user="ace"
 home_folder="/home/$shell_user"
 
+sudo apt update
+sudo apt-get -f dist-upgrade
 sudo apt install -y git vim
 
 rm -rf bootstrap
