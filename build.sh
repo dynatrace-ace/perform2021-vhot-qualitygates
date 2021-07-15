@@ -253,13 +253,9 @@ kubectl create -f $home_folder/$clone_folder/box/helm/registry.yml
 ##############################
 # Install Jenkins            #
 ##############################
-# Configure persistent volume claim for jenkins jobs
-echo "configure maven pvc"
-kubectl apply -f $home_folder/$clone_folder/box/helm/k8s-maven-pvc.yml
 
 echo "Jenkins - Install"
 
-kubectl create -f $home_folder/$clone_folder/box/helm/jenkins-pvc.yml
 sed \
     -e "s|DOCKER_REGISTRY_URL_PLACEHOLDER|localhost:32000|" \
     -e "s|GITHUB_USER_EMAIL_PLACEHOLDER|$git_email|" \
@@ -281,6 +277,10 @@ export KUBECONFIG=/etc/rancher/k3s/k3s.yaml
 
 helm upgrade -i jenkins jenkins/jenkins --create-namespace -f $home_folder/$clone_folder/box/helm/jenkins-values-gen.yml --version $jenkins_chart_version --namespace jenkins --wait 
 
+# Configure persistent volume claim for jenkins jobs
+echo "configure maven pvc"
+kubectl apply -f $home_folder/$clone_folder/box/helm/k8s-maven-pvc.yml
+kubectl apply -f $home_folder/$clone_folder/box/helm/jenkins-pvc.yml
 
 ##############################
 # Deploy Dashboard           #
