@@ -1,6 +1,6 @@
 variable "acebox_size" {
   description = "Size (machine type) of the ace-box instance"
-  default     = "n2-standard-2"
+  default     = "n2-standard-4"
 }
 
 variable "acebox_user" {

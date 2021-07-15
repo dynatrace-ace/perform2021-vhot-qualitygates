@@ -69,7 +69,7 @@ resource "google_compute_instance" "acebox" {
 
   provisioner "remote-exec" {
     inline = [
-        "sudo apt-get update && sudo DEBIAN_FRONTEND=noninteractive apt-get upgrade -y",
+        "sudo apt update -y && sudo DEBIAN_FRONTEND=noninteractive apt upgrade -y",
         "sudo sed -i 's/PasswordAuthentication no/PasswordAuthentication yes/' /etc/ssh/sshd_config",
         "sudo service ssh restart",
         "sudo usermod -aG sudo ${var.acebox_user}",
@@ -84,7 +84,7 @@ resource "google_compute_instance" "acebox" {
   provisioner "remote-exec" {
     inline = [
         "sudo chmod +x ~/install.sh",
-        "sudo DT_CLUSTER_URL=${var.dt_cluster_url}  DT_ENVIRONMENT_ID=${dynatrace_environment.vhot_env[each.key].id} DT_ENVIRONMENT_TOKEN=${dynatrace_environment.vhot_env[each.key].api_token} ~/install.sh"
+        "sudo DT_CLUSTER_URL=${var.dt_cluster_url}  DT_ENVIRONMENT_ID=${dynatrace_environment.vhot_env[each.key].id} DT_ENVIRONMENT_TOKEN=${dynatrace_environment.vhot_env[each.key].api_token} VM_IP=${self.network_interface.0.access_config.0.nat_ip} ~/install.sh"
       ]
   }
 }

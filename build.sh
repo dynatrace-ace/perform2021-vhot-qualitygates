@@ -84,7 +84,6 @@ echo "Retrieving Dynatrace Environment details"
 
 DT_TENANT="$DT_CLUSTER_URL/e/$DT_ENVIRONMENT_ID"
 
-VM_IP=$(curl -s http://169.254.169.254/latest/meta-data/public-ipv4)
 echo "Virtual machine IP: $VM_IP"
 
 ingress_domain="$VM_IP.$domain"
