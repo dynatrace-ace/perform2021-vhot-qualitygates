@@ -451,16 +451,6 @@ controller:
                     id: "git-creds-ace"
                     scope: GLOBAL
         unclassified:
-          defaultFolderConfiguration:
-            healthMetrics:
-            - worstChildHealthMetric:
-                recursive: true
-          gitHubPluginConfig:
-            hookUrl: "http://jenkins/github-webhook/"
-          gitSCM:
-            createAccountBasedOnEmail: false
-            showEntireCommitSummaryInChanges: false
-            useExistingAccountWithSameEmail: false
           globalLibraries:
             libraries:
             - name: "dynatrace"
@@ -481,14 +471,6 @@ controller:
                       remote: "https://github.com/keptn-sandbox/keptn-jenkins-library.git"
                       traits:
                       - "gitBranchDiscovery"
-          location:
-            adminAddress: "address not configured yet <nobody@nowhere>"
-            url: "https://jenkins.JENKINS_INGRESS_PLACEHOLDER/"
-          mailer:
-            charset: "UTF-8"
-            useSsl: false
-          pollSCM:
-            pollingThreadCount: 10                    
         jobs:
           - script: >
               pipelineJob('k8s-deploy-staging') {
