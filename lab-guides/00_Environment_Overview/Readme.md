@@ -83,6 +83,7 @@ As you see, it's difficult to locate an specific service with the current config
     * Process group name format: `{ProcessGroup:Environment:app}.{ProcessGroup:KubernetesNamespace}`
     * Condition: `Kubernetes namespace`> `exists`
 1. Click on **Preview** and **Create rule**.
+1. Click on **Save changes**.
 #### Part 2: Create Service Tag for app based on process group info
 1. Go to **Settings**, **Tags**, and click on **Automatically applied tags**.
 1. Create a new custom tag with the name `app`. **THIS TAG NAME IS CASE SENSITIVE.**
@@ -104,9 +105,9 @@ As you see, it's difficult to locate an specific service with the current config
 
 
 ## Step 8 - Release the first version to staging
-Go into `Jenkins > sockshop > create-release-branch` and use `carts` as parameter to create a new branch for our release to staging. Then go into `Jenkins > sockshop > Scan Multibranch Pipeline Now` to visualize the new branch created and trigger automatically a new build.
+Go into `Jenkins > sockshop > create-release-branch` and use `carts` as parameter to create a new branch for our release to staging. Then go into `Jenkins > sockshop > carts` and click on `Scan Multibranch Pipeline Now` to visualize the new branch created and trigger automatically a new build.
 
-After the build has finished run `kubectl -n staging get deploy carts` to see the microservice running in the staging environment.
+After the build has finished, run `kubectl -n staging get deploy carts` to see the microservice running in the staging environment.
 
 ## Next steps
 We have now a working version of our microservice running in the environments `dev` and `staging`, but we haven't implemented any quality checks yet. In the next labs, we will configure `Keptn + Dynatrace + Jenkins` to implement a Quality Gate and we see how this can prevent bad builds from being promoted from one environment into the next one.

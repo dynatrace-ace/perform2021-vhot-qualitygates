@@ -152,6 +152,6 @@ indicators:
 
 ---
 
-[Previous Step: Write Load Test Script](../05_Write_Load_Test_Script) :arrow_backward: :arrow_forward: [Next Step: Run Performance Tests](../07_Run_Performance_Tests)
+[Previous Step: Write Load Test Script](../05_Write_Load_Test_Script) :arrow_backward: :arrow_forward: [Next Step: Run Performance Tests](../07_Run_Pipeline)
 
 :arrow_up_small: [Back to overview](../)
