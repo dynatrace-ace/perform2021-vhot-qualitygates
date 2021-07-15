@@ -46,7 +46,7 @@ paas_token_body='{
                     "scopes": [
                         "InstallerDownload"
                     ],
-                    "name": "vhot-monaco-paas"
+                    "name": "vhot-qgs-paas"
                   }'
 
 DT_PAAS_TOKEN_RESPONSE=$(curl -k -s --location --request POST "${DT_CLUSTER_URL}/e/$DT_ENVIRONMENT_ID/api/v2/apiTokens" \
@@ -68,7 +68,7 @@ api_token_body='{
                     "metrics.ingest", "securityProblems.read", "securityProblems.write", "syntheticLocations.read", "syntheticLocations.write", "settings.read", "settings.write", 
                     "tenantTokenRotation.write", "slo.read", "slo.write", "releases.read", "apiTokens.read", "apiTokens.write", "logs.read", "logs.ingest"
                 ],
-                "name": "vhot-monaco-api-token"
+                "name": "vhot-qgs-api-token"
                 }'
 
 DT_API_TOKEN_RESPONSE=$(curl -k -s --location --request POST "${DT_CLUSTER_URL}/e/$DT_ENVIRONMENT_ID/api/v2/apiTokens" \
