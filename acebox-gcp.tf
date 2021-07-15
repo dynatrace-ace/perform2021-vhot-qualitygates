@@ -71,8 +71,10 @@ resource "google_compute_instance" "acebox" {
     inline = [
         "sudo apt update -y && sudo DEBIAN_FRONTEND=noninteractive apt upgrade -y",
         "sudo sed -i 's/PasswordAuthentication no/PasswordAuthentication yes/' /etc/ssh/sshd_config",
+        "echo \"${var.acebox_user}:${var.acebox_user}\" | sudo chpasswd",
         "sudo service ssh restart",
         "sudo usermod -aG sudo ${var.acebox_user}",
+        "sudo chown -R ${var.acebox_user}:${var.acebox_user} /home/${var.acebox_user}/"
       ]
   }
 
