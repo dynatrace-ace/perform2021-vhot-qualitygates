@@ -16,6 +16,7 @@ In this lab you will activate a Quality gate for the carts service that will cat
     ```
   
     2.2 This set the keptn variables required
+
     ```groovy
       environment {
         KEPTN_PROJECT = "acl-sockshop"
@@ -115,10 +116,10 @@ Go to `k8-deploy-staging/keptn` folder and review the files that define the cart
   objectives:
     - sli: "response_time_p95"
       key_sli: false
-      pass:             # pass if (relative change <= 10% AND absolute value is < 400ms)
+      pass:             # pass if (relative change <= 10% AND absolute value is < 500ms)
         - criteria:
             - "<=+10%"  # relative values require a prefixed sign (plus or minus)
-            - "<400"    # absolute values only require a logical operator
+            - "<500"    # absolute values only require a logical operator
       warning:          # if the response time is above 400ms and less or equal to 700ms, the result should be a warning
         - criteria:
             - "<=700"  # if the response time is above 700ms, the result should be a failure
