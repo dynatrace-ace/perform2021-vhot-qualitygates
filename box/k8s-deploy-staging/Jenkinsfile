@@ -1,10 +1,4 @@
 @Library('dynatrace@v1.0')
-//  Link to keptn QG evaluation
-/*
-@Library('keptn-library@3.3')
-import sh.keptn.Keptn
-def keptn = new sh.keptn.Keptn()
-*/
 
 def tagMatchRules = [
   [
@@ -12,7 +6,7 @@ def tagMatchRules = [
       [meType: 'SERVICE']
     ],
     tags : [
-      [context: 'CONTEXTLESS', key: 'app', value: ''],
+      [context: 'CONTEXTLESS', key: 'app', value: 'carts'],
       [context: 'CONTEXTLESS', key: 'environment', value: 'staging']
     ]
   ]
@@ -29,22 +23,6 @@ pipeline {
     string(name: 'VERSION', defaultValue: '', description: 'The version of the service to deploy.', trim: true)
   }
 
-//  Link to keptn QG evaluation
-/*
-  environment {
-    KEPTN_PROJECT = "acl-sockshop"
-    KEPTN_SERVICE = "${APP_NAME}"
-    KEPTN_STAGE = "staging"
-    KEPTN_MONITORING = "dynatrace"
-    KEPTN_SHIPYARD = "keptn/shipyard.yaml"
-    KEPTN_SLI = "keptn/${APP_NAME}-sli.yaml"
-    KEPTN_SLO = "keptn/${APP_NAME}-slo.yaml"
-    KEPTN_DT_CONF = "keptn/dynatrace.conf.yaml"
-    KEPTN_ENDPOINT = credentials('keptn-endpoint')
-    KEPTN_API_TOKEN = credentials('keptn-api-token')
-    KEPTN_BRIDGE = credentials('keptn-bridge')
-  }
-*/
   stages {
     stage('Update Deployment and Service specification') {
       steps {
@@ -88,99 +66,5 @@ pipeline {
       }
     } // end stage
 
-
-// Link to keptn QG evaluation
-/*
-    stage('Keptn Init') {
-      steps{
-        script {
-          keptn.keptnInit project:"${KEPTN_PROJECT}", service:"${KEPTN_SERVICE}", stage:"${KEPTN_STAGE}", monitoring:"${KEPTN_MONITORING}", shipyard: "${KEPTN_SHIPYARD}"
-          keptn.keptnAddResources("${KEPTN_SLI}",'dynatrace/sli.yaml')
-          keptn.keptnAddResources("${KEPTN_SLO}",'slo.yaml')
-          keptn.keptnAddResources("${KEPTN_DT_CONF}",'dynatrace/dynatrace.conf.yaml')          
-        }
-      }
-    } // end stage
-    
-    stage('Staging Warm Up') {
-      steps {
-        echo "Waiting for the service to start..."
-        container('kubectl') {
-          script {
-            def status = waitForDeployment (
-              deploymentName: "${env.APP_NAME}",
-              environment: 'staging'
-            )
-            if(status !=0 ){
-              currentBuild.result = 'FAILED'
-              error "Deployment did not finish before timeout."
-            }
-          }
-        }
-        echo "Running one iteration with one VU to warm up service"  
-        container('jmeter') {
-          script {
-            def status = executeJMeter ( 
-              scriptName: "jmeter/${env.APP_NAME}_perfcheck.jmx",
-              resultsDir: "PerfCheck_Warmup_${env.APP_NAME}_${env.VERSION}_${BUILD_NUMBER}",
-              serverUrl: "${env.APP_NAME}.${env.KEPTN_STAGE}",  
-              serverPort: 80,
-              checkPath: '/health',
-              vuCount: 1,
-              loopCount: 10,
-              LTN: "PerfCheck_Warmup_${BUILD_NUMBER}",
-              funcValidation: false,
-              avgRtValidation: 4000
-            )
-            if (status != 0) {
-              currentBuild.result = 'FAILED'
-              error "Performance check failed."
-            }
-          }
-        }
-      }
-    } // end stage
-
-    stage('Run check in staging') {
-      steps {
-        script {
-            keptn.markEvaluationStartTime()
-        }
-        container('jmeter') {
-          script {
-            def status = executeJMeter ( 
-              scriptName: "jmeter/${env.APP_NAME}_perfcheck.jmx",
-              resultsDir: "PerfCheck_${env.APP_NAME}_${env.VERSION}_${BUILD_NUMBER}",
-              serverUrl: "${env.APP_NAME}.${env.KEPTN_STAGE}", 
-              serverPort: 80,
-              checkPath: '/health',
-              vuCount: 5,
-              loopCount: 500,
-              LTN: "PerfCheck_${BUILD_NUMBER}",
-              funcValidation: false,
-              avgRtValidation: 4000
-            )
-            if (status != 0) {
-              currentBuild.result = 'FAILED'
-              error "Performance check failed."
-            }
-          }
-        }
-        script {
-          def keptnContext = keptn.sendStartEvaluationEvent starttime:"", endtime:"" 
-          echo "Open Keptns Bridge: ${keptn_bridge}/trace/${keptnContext}"
-        }
-      }
-    } // end stage
-
-    stage('Pipeline Quality Gate') {
-      steps {
-        script {
-          def result = keptn.waitForEvaluationDoneEvent setBuildResult:true, waitTime:'5'
-          echo "${result}"
-        }
-      }
-    } // end stage
-*/
   } // end stages
 } // end pipeline
