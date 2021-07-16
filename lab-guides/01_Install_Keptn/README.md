@@ -78,6 +78,6 @@ After installing and exposing Keptn, you can access the Keptn Bridge by using a 
     (bastion)$ keptn configure bridge --output
     ```
 
-[Previous Step: Install Keptn](../00_Environment_Overview) :arrow_backward: :arrow_forward: [Next Step: Configure Monitoring with Keptn](../02_Configure_Keptn_Dynatrace_Integration)
+[Previous Step: Environment Overview](../00_Environment_Overview) :arrow_backward: :arrow_forward: [Next Step: Configure Monitoring with Keptn](../02_Configure_Keptn_Dynatrace_Integration)
 
 :arrow_up_small: [Back to overview](../)

@@ -4,7 +4,7 @@ In this lab you will activate a Quality gate for the carts service that will cat
 
 ## Step 1: Update `Jenkinsfile`
 
-1. Navigate to the `k8s-deploy-staging` repository (`http://gitea.xx.xx.xx.xx.nip.io/perform/k8s-deploy-staging`) in your Gitea instance and locate the file named Jenkinsfile.keptn
+1. Navigate to the `k8s-deploy-staging` repository (`http://gitea.xx.xx.xx.xx.nip.io/perform/k8s-deploy-staging`) in your Gitea instance and locate the file named `Jenkinsfile.keptn`
 1. Copy all the content in this file and paste it into the file named `Jenkinsfile` on the same repository (make sure to replace all the content that was there).
 
     2.1. This will import the keptn groovy libraries inside the Jenkins pipeline and will set the parameter values that will used throughout the pipeline.
@@ -102,7 +102,7 @@ In this lab you will activate a Quality gate for the carts service that will cat
 
 ## Step 3: Review the SLO,SLI definitions
 
-Go to `k8-deploy-staging\keptn` folder and review the files that define the carts SLO. You can find more information about SLO definitions [here](https://keptn.sh/docs/0.7.x/quality_gates/slo/)
+Go to `k8-deploy-staging/keptn` folder and review the files that define the carts SLO. You can find more information about SLO definitions [here](https://keptn.sh/docs/0.7.x/quality_gates/slo/)
 
 ```yaml
 ---
@@ -152,6 +152,6 @@ indicators:
 
 ---
 
-[Previous Step: Write Load Test Script](../05_Write_Load_Test_Script)
+[Previous Step: Write Load Test Script](../05_Write_Load_Test_Script) :arrow_backward: :arrow_forward: [Next Step: Run Pipeline](../07_Run_Pipeline)
 
 :arrow_up_small: [Back to overview](../)
