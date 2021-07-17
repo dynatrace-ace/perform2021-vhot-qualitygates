@@ -1,14 +1,14 @@
 resource "dynatrace_environment" "vhot_env" {
   for_each = var.users
 
-  name = "${var.name_prefix}-${each.key}"
+  name = "${var.name_prefix}-${each.key}-${random_id.uuid.hex}"
   state = var.environment_state
 }
 
 resource "dynatrace_cluster_user_group" "vhot_groups" {
   for_each = var.users
 
-	name = "ext-group-${var.name_prefix}-${each.key}"
+	name = "ext-group-${var.name_prefix}-${each.key}-${random_id.uuid.hex}"
 	access_rights = jsonencode(
 		{
 			VIEWER = [
