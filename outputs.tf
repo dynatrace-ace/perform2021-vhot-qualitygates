@@ -1,4 +1,4 @@
-output "users" {
+output "dashboard_url" {
   value = {
     for index, user in var.users:
     user.email => "http://dashboard.${google_compute_instance.acebox[index].network_interface[0].access_config[0].nat_ip}.nip.io"
