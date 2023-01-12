@@ -1,0 +1,24 @@
+{
+    "carts" : {
+        "etype" : "SERVICE",
+        "name" : "Carts Service",
+        "owner" : "TBD",
+        "environments" : {
+            "Staging" : {
+                "tags" : [
+                    {
+                        "context" : "CONTEXTLESS",
+                        "key" : "environment",
+                        "value" : "staging"
+                    },
+                    {
+                        "context" : "CONTEXTLESS",
+                        "key" : "app",
+                        "value" : "carts"
+                    }
+                ]
+            }
+        }
+    }
+}
+

@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Perform HOT - Monitoring as Code</title>
+  <meta charset="utf-8">
+  <link rel="stylesheet" href="Tooltip.css" />
+  <link rel="stylesheet" href="https://assets.dynatrace.com/groundhog/v6.1.1/css/main.css" />
+  
+</head>
+<script>
+  window.setInterval(function() {
+      document.getElementById('iframe1').src = document.getElementById('iframe1').src;
+      document.getElementById('iframe2').src = document.getElementById('iframe2').src;
+      document.getElementById('iframe3').src = document.getElementById('iframe3').src;
+  }, 10000);    
+</script>
+<body class="theme--blue">
+    <div class="nav has-no-secondary">
+    <a class="nav__brand" href="/">
+        <img class="nav__logo" src="http://assets.dynatrace.com/global/logos/dynatrace-logo.svg" alt="dynatrace logo">
+    </a>
+        <nav id="nav-bar-example1" class="nav__bar">
+            <ul class="nav__list nav__list--primary">
+            <li class="nav__item">
+                <a class="nav__link" href="index.html">ACE-BOX</a>
+            </li>
+            <li class="nav__item">
+                <a class="nav__link" target="_blank" href="http://jenkins.INGRESS_PLACEHOLDER/">Jenkins</a>
+            </li>
+            <li class="nav__item">
+                <a class="nav__link" href="http://gitea.INGRESS_PLACEHOLDER/">Gitea</a>
+            </li>
+            <li class="nav__item">
+                <a class="nav__link" target="_blank" href="DYNATRACE_TENANT_PLACEHOLDER">Dynatrace</a>
+            </li>
+            </ul>
+        </nav>
+    </div>
+    <div class="section homepage__cta section--bg section--light section--contenttop section--bgcover section--masthead">
+        <ul style="padding-left: 10px;">
+        <li>Jenkins: <a href="http://jenkins.INGRESS_PLACEHOLDER/" target="_blank">http://jenkins.INGRESS_PLACEHOLDER/</a> | user = admin | pass = dynatrace </li>
+        <li>Gitea: <a href="http://gitea.INGRESS_PLACEHOLDER/" target="_blank">http://gitea.INGRESS_PLACEHOLDER/</a> | user = GITEA_USER_PLACEHOLDER | pass = GITEA_USER_PLACEHOLDER | personal access token = GITEA_PAT_PLACEHOLDER</li>
+        <li>Dynatrace: <a href="DYNATRACE_TENANT_PLACEHOLDER" target="_blank">DYNATRACE_TENANT_PLACEHOLDER</a></li>
+        </ul>
+        
+        <div class="column column--1-of-2" style="padding-left: 10px; padding-right: 10px;">
+            <iframe id="iframe1" height="600px" width="100%" src="http://simplenode.app-one.INGRESS_PLACEHOLDER/"></iframe>
+        </div>
+        <div class="column column--1-of-2" style="padding-left: 10px; padding-right: 10px;">
+            <iframe id="iframe2" height="600px" width="100%" src="http://simplenode.app-two.INGRESS_PLACEHOLDER/"></iframe>
+        </div>
+        <div class="column column--1-of-2" style="padding-left: 10px; padding-right: 10px;">
+            <iframe id="iframe3" height="600px" width="100%" src="http://simplenode.app-three.INGRESS_PLACEHOLDER/"></iframe>
+        </div>
+    </div>
+    <script type="text/javascript" src="https://assets.dynatrace.com/groundhog/v6.1.1/js/main.js"></script>
+</body>
+
+</html>

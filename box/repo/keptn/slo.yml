@@ -1,0 +1,42 @@
+---
+spec_version: "0.1.1"
+comparison:
+  aggregate_function: "avg"
+  compare_with: "single_result"
+  include_result_with_score: "pass"
+  number_of_comparison_results: 1
+filter:
+objectives:
+  - sli: "response_time_p95"
+    key_sli: false
+    pass:             # pass if (relative change <= 10% AND absolute value is < 600ms)
+      - criteria:
+          - "<=+10%"  # relative values require a prefixed sign (plus or minus)
+          - "<800"    # absolute values only require a logical operator
+    warning:          # if the response time is below 800ms, the result should be a warning
+      - criteria:
+          - "<=1000"
+    weight: 1
+  - sli: "rt_invokeapi" # looking at a particular transaction
+    weight: 2           # business critical transaction
+    pass:
+      - criteria:
+          - "<=+10%"    # Degradation-driven
+          - "<850000"   # NFR-driven
+    warning:
+      - criteria:
+          - "<=+20%"
+          - "<=1000000"
+  - sli: "error_rate"
+    pass:
+      - criteria:
+          - "<=+5%"
+          - "<2"
+    warning:
+      - criteria:
+          - "<5"
+  - sli: "pg_heap_suspension"
+  - sli: "pg_cpu_usage"
+total_score:
+  pass: "90%"
+  warning: "75%"

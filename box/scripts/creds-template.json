@@ -1,0 +1,14 @@
+{
+    "jenkinsUser": "admin",
+    "jenkinsPassword": "dynatrace",
+    "docsOrg": "perform",
+    "docsRepo": "perform",
+    "docsBranch": "master",
+    "dynatraceTenant": "DYNATRACE_ENVIRONMENT_ID",
+    "dynatraceApiToken": "DYNATRACE_TOKEN",
+    "dynatracePaasToken": "DYNATRACE_PAAS_TOKEN",
+    "githubUserName": "dynatrace",
+    "githubPersonalAccessToken": "PERSONAL_ACCESS_TOKEN_PLACEHOLDER",
+    "githubUserEmail": "ace@dynatrace.com",
+    "githubOrg": "sockshop"
+}

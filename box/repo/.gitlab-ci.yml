@@ -1,0 +1,50 @@
+include:
+  - local: 'gitlab/dt_jmeter_loadtest.yaml'
+  - local: 'gitlab/keptn_init.yaml'
+  - local: 'gitlab/keptn_eval.yaml'
+ 
+stages:
+  - init
+  - deploy
+  - test
+  - eval
+
+keptn_init:
+  stage: init
+  environment:
+    name: test
+  variables: 
+    KEPTN_PROJECT: simplenode-gitlab
+    KEPTN_SERVICE: simplenodeservice
+    KEPTN_STAGE: staging
+    KEPTN_SOURCE: gitlab
+    KEPTN_MONITORING: dynatrace
+
+deployment:
+  image: dtzar/helm-kubectl
+  stage: deploy # must match the stage name declared above
+  script:
+    # create/update the kubernetes resources
+    - kubectl apply -f gitlab/manifest.yml
+    # Restart the deployment so as to pull the latest version of the container image
+    - kubectl -n simplenode-gitlab rollout restart deployment/simplenodeservice
+  environment:
+    name: test
+
+generate-load: 
+  stage: test   
+  environment:
+    name: test
+  variables: 
+    ENDPOINT: simplenode.simplenode-gitlab.192.168.50.10.nip.io
+
+keptn_evaluation:
+  stage: eval
+  environment:
+    name: test
+  variables: 
+    KEPTN_PROJECT: simplenode-gitlab
+    KEPTN_SERVICE: simplenodeservice
+    KEPTN_STAGE: staging
+    KEPTN_SOURCE: gitlab
+    KEPTN_MONITORING: dynatrace

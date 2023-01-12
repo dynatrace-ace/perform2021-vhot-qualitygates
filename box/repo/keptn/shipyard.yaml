@@ -1,0 +1,3 @@
+stages:
+  - name: "staging"
+  - name: "qa"

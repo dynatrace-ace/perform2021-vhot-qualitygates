@@ -1,0 +1,3 @@
+#nodeport: 30001
+replicasnum: 1
+domain: INGRESS_PLACEHOLDER
